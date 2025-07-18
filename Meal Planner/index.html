@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Meal Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Meal Planner</h1>
+    
+  </header>
+  <main>
+    <nav class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="beef">Beef Mince</button>
+      <button class="filter-btn" data-filter="chicken">Chicken</button>
+    </nav>
+    <section id="meal-gallery" class="meal-gallery"></section>
+    <section id="meal-detail-page" class="hidden">
+      <div class="meal-page">
+        <header class="meal-header">
+          <button class="close-detail" id="close-detail-btn" aria-label="Back to gallery">&larr; Back</button>
+          <img id="meal-detail-img" class="meal-banner" alt="Meal image" />
+          <h1 id="meal-detail-name" class="meal-title"></h1>
+        </header>
+        <section class="nutrition-targets">
+          <div class="target-inputs">
+            <input type="number" id="target-calories-detail" placeholder="Calories">
+            <input type="number" id="target-carbs-detail" placeholder="Carbs (g)">
+            <input type="number" id="target-protein-detail" placeholder="Protein (g)">
+            <input type="number" id="target-fat-detail" placeholder="Fat (g)">
+          </div>
+        </section>
+        <section class="nutrition-table-container">
+          <!-- Nutrition table will be rendered here -->
+        </section>
+        <section class="cooking-panel">
+          <!-- Cooking instructions and customization -->
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Accessible, mobile-first meal planner. Images: Unsplash/SVG mockups.</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html> 

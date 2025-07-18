@@ -1,0 +1,107 @@
+{
+  "meal_extras": {
+    "mexican_style": {
+      "meals": [
+        "chilli_con_carne",
+        "beef_burrito",
+        "beef_tacos",
+        "loaded_nachos",
+        "chicken_fajitas"
+      ],
+      "extras": [
+        "cheddar_cheese",
+        "sour_cream",
+        "guacamole",
+        "salsa",
+        "onion",
+        "bell_pepper",
+        "lettuce",
+        "tomato"
+      ]
+    },
+    "italian_style": {
+      "meals": [
+        "spaghetti_bolognese",
+        "meatballs_pasta",
+        "pasta_bake"
+      ],
+      "extras": [
+        "cheddar_cheese",
+        "mushrooms",
+        "onion",
+        "bell_pepper",
+        "tomato"
+      ]
+    },
+    "asian_style": {
+      "meals": [
+        "chicken_teriyaki",
+        "sweet_sour_stir_fry"
+      ],
+      "extras": [
+        "bell_pepper",
+        "onion",
+        "mushrooms"
+      ]
+    },
+    "curry_style": {
+      "meals": [
+        "chicken_curry"
+      ],
+      "extras": [
+        "mini_naan",
+        "onion",
+        "bell_pepper",
+        "mushrooms"
+      ]
+    },
+    "burger_style": {
+      "meals": [
+        "beef_burgers",
+        "chicken_burgers"
+      ],
+      "extras": [
+        "cheddar_cheese",
+        "lettuce",
+        "tomato",
+        "onion",
+        "mushrooms"
+      ]
+    },
+    "pitta_style": {
+      "meals": [
+        "chicken_pitta"
+      ],
+      "extras": [
+        "lettuce",
+        "tomato",
+        "onion",
+        "cheddar_cheese"
+      ]
+    },
+    "cottage_pie_style": {
+      "meals": [
+        "cottage_pie"
+      ],
+      "extras": [
+        "cheddar_cheese",
+        "onion",
+        "bell_pepper",
+        "mushrooms",
+        "peas",
+        "carrot"
+      ]
+    },
+    "stuffed_peppers_style": {
+      "meals": [
+        "stuffed_peppers"
+      ],
+      "extras": [
+        "cheddar_cheese",
+        "onion",
+        "mushrooms",
+        "sweetcorn"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "portion_steps": {
+    "basmati_rice": {"base_unit": "75g dry", "steps": [40, 80, 120, 160], "step_calories": [193, 386, 579, 772]},
+    "penne_pasta": {"base_unit": "75g dry", "steps": [40, 80, 120, 160], "step_calories": [143, 286, 429, 572]},
+    "large_tortilla": {"base_unit": "each", "steps": [1, 2, 3, 4], "step_calories": [173, 346, 519, 692]},
+    "mini_tortilla": {"base_unit": "each", "steps": [1, 2, 3, 4, 5, 6], "step_calories": [88, 176, 264, 352, 440, 528]},
+    "taco_shell": {"base_unit": "each", "steps": [1, 2, 3, 4, 5, 6], "step_calories": [59, 118, 177, 236, 295, 354]},
+    "tortilla_chips": {"base_unit": "100g", "steps": [50, 75, 100, 125, 150], "step_calories": [237, 355, 473, 591, 710]},
+    "brioche_bun": {"base_unit": "each", "steps": [1, 2, 3, 4], "step_calories": [172, 344, 516, 688]},
+    "pitta_bread": {"base_unit": "each", "steps": [1, 2, 3, 4], "step_calories": [160, 320, 480, 640]},
+    "egg_noodles": {"base_unit": "100g", "steps": [50, 100, 150, 200], "step_calories": [61, 123, 184, 246]},
+    "bell_peppers": {"base_unit": "each (120g avg)", "steps": [1, 2, 3, 4], "step_calories": [35, 70, 105, 140]}
+  }
+} 

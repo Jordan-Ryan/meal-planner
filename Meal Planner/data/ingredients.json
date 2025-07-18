@@ -1,0 +1,48 @@
+{
+  "proteins": {
+    "beef_mince_5": {"name": "5% Fat Beef Mince", "calories": 132, "fat": 4.9, "carbs": 0, "protein": 21.9, "unit": "100g"},
+    "beef_mince_15": {"name": "15% Fat Beef Mince", "calories": 209, "fat": 14.5, "carbs": 0, "protein": 19.7, "unit": "100g"},
+    "beef_mince_20": {"name": "20% Fat Beef Mince", "calories": 252, "fat": 19.8, "carbs": 0, "protein": 18.4, "unit": "100g"},
+    "chicken_breast": {"name": "Chicken Breast", "calories": 115, "fat": 3.3, "carbs": 0, "protein": 21.5, "unit": "100g raw"},
+    "chicken_thigh": {"name": "Chicken Thigh", "calories": 161, "fat": 9.8, "carbs": 0, "protein": 18.3, "unit": "100g raw"},
+    "chicken_drumstick": {"name": "Chicken Drumstick", "calories": 111, "fat": 5.2, "carbs": 0, "protein": 17.6, "unit": "100g raw"}
+  },
+  "sauces": {
+    "bolognese": {"name": "Tesco Bolognese Sauce", "calories": 42, "fat": 0.8, "carbs": 5.9, "protein": 2, "unit": "100g", "ratio": "1:1"},
+    "chilli_con_carne": {"name": "Mild Chilli Con Carne Sauce", "calories": 53, "fat": 0.4, "carbs": 9, "protein": 2.1, "unit": "100g", "ratio": "1:1"},
+    "nandos_medium": {"name": "Nando's Medium Marinade", "calories": 74, "fat": 3.9, "carbs": 6.9, "protein": 1.2, "unit": "100g", "ratio": "1:4"},
+    "teriyaki": {"name": "OXO Teriyaki Marinade", "calories": 116, "fat": 0.5, "carbs": 26.9, "protein": 1.7, "unit": "100g", "ratio": "1:4"},
+    "sweet_sour": {"name": "Sweet & Sour Stir Fry Sauce", "calories": 126, "fat": 2.9, "carbs": 24.1, "protein": 0.6, "unit": "100g", "ratio": "1:2"},
+    "butter_chicken": {"name": "Butter Chicken Sauce", "calories": 138, "fat": 11.7, "carbs": 7.2, "protein": 0.6, "unit": "100g", "ratio": "1:1"},
+    "tikka_masala": {"name": "Tikka Masala Sauce", "calories": 80, "fat": 3.4, "carbs": 10.3, "protein": 1.5, "unit": "100g", "ratio": "1:1"},
+    "korma": {"name": "Korma Sauce", "calories": 92, "fat": 4.9, "carbs": 10.5, "protein": 1, "unit": "100g", "ratio": "1:1"},
+    "colmans_cottage_mix": {"name": "Colman's Cottage Pie Mix", "calories": 320, "fat": 2.7, "carbs": 56, "protein": 14, "unit": "100g", "ratio": "1:9"}
+  },
+  "carbs": {
+    "basmati_rice": {"name": "Tesco Basmati Rice", "calories": 362, "fat": 2.1, "carbs": 76.6, "protein": 8.5, "unit": "75g dry"},
+    "egg_noodles": {"name": "Egg Noodles", "calories": 123, "fat": 1.2, "carbs": 22.7, "protein": 4, "unit": "100g"},
+    "penne_pasta": {"name": "Tesco Penne Pasta", "calories": 268, "fat": 0.7, "carbs": 53.6, "protein": 9.9, "unit": "75g dry"},
+    "large_tortilla": {"name": "Tesco White Tortilla", "calories": 173, "fat": 3.1, "carbs": 30.3, "protein": 5, "unit": "each"},
+    "mini_tortilla": {"name": "Tesco White Mini Tortilla", "calories": 88, "fat": 1.6, "carbs": 15.4, "protein": 2.5, "unit": "each"},
+    "taco_shell": {"name": "Tesco Taco Shell", "calories": 59, "fat": 2.2, "carbs": 8.6, "protein": 0.8, "unit": "each"},
+    "tortilla_chips": {"name": "Tesco Lightly Salted Tortilla Chips", "calories": 473, "fat": 20.5, "carbs": 62.9, "protein": 6.1, "unit": "100g"},
+    "brioche_bun": {"name": "Tesco Brioche Burger Bun", "calories": 172, "fat": 2.9, "carbs": 29.9, "protein": 5.2, "unit": "each"},
+    "seeded_bun": {"name": "Tesco Seeded Large Bun", "calories": 227, "fat": 4.8, "carbs": 37.1, "protein": 6.6, "unit": "each"},
+    "pitta_bread": {"name": "Pitta Bread", "calories": 160, "fat": 1.2, "carbs": 33, "protein": 5.8, "unit": "each"},
+    "white_potato": {"name": "White Potato", "calories": 75, "fat": 0.1, "carbs": 15.4, "protein": 2.2, "unit": "100g boiled"},
+    "sweet_potato": {"name": "Sweet Potato", "calories": 76, "fat": 0.14, "carbs": 18, "protein": 1.4, "unit": "100g boiled"},
+    "bell_peppers": { "name": "Bell Pepper", "calories": 35, "fat": 0.2, "carbs": 5.5, "protein": 1.0, "unit": "each (120g avg)"}
+  },
+  "extras": {
+    "mini_naan": {"name": "Mini Garlic Naan", "calories": 128, "fat": 2.3, "carbs": 22.7, "protein": 3.6, "unit": "each"},
+    "cheddar_cheese": {"name": "Mild Cheddar Cheese", "calories": 416, "fat": 34.9, "carbs": 1.3, "protein": 25.4, "unit": "100g"},
+    "bell_pepper": {"name": "Bell Peppers", "calories": 29, "fat": 0.17, "carbs": 4.6, "protein": 0.86, "unit": "100g"},
+    "onion": {"name": "Onions", "calories": 40, "fat": 0.1, "carbs": 9.3, "protein": 1.1, "unit": "100g"},
+    "lettuce": {"name": "Lettuce", "calories": 14, "fat": 0.1, "carbs": 2.9, "protein": 0.9, "unit": "100g"},
+    "tomato": {"name": "Tomato", "calories": 18, "fat": 0.2, "carbs": 3.9, "protein": 0.9, "unit": "100g"},
+    "mushrooms": {"name": "Mushrooms", "calories": 22, "fat": 0.3, "carbs": 4.1, "protein": 3.1, "unit": "100g"},
+    "guacamole": {"name": "Guacamole", "calories": 167, "fat": 15, "carbs": 9, "protein": 2, "unit": "100g"},
+    "sour_cream": {"name": "Sour Cream", "calories": 174, "fat": 17.1, "carbs": 4.6, "protein": 2.9, "unit": "100g"},
+    "salsa": {"name": "Salsa", "calories": 23, "fat": 0.1, "carbs": 5, "protein": 1, "unit": "50g"}
+  }
+} 

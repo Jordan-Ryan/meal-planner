@@ -1,0 +1,197 @@
+{
+  "meals": [
+    {
+      "id": "spaghetti_bolognese",
+      "name": "Spaghetti Bolognese",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "bolognese",
+      "carb": "penne_pasta",
+      "carb_portions": [40, 80, 120, 160],
+      "image": "spaghetti-bolognese-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, simmer 5 min. Cook {carb_weight}g {carb_name} separately. Combine and serve.",
+      "appropriate_extras": ["cheddar_cheese", "mushrooms", "onion", "bell_pepper"]
+    },
+    {
+      "id": "meatballs_pasta",
+      "name": "Meatballs with Pasta or Spaghetti",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "bolognese",
+      "carb": "penne_pasta",
+      "carb_portions": [40, 80, 120, 160],
+      "image": "meatballs-pasta-food",
+      "cooking_base": "Shape mince into balls, brown, add {sauce_weight}g {sauce_name}, simmer 10 min. Cook {carb_weight}g {carb_name} separately. Serve together.",
+      "appropriate_extras": ["cheddar_cheese", "mushrooms", "onion", "bell_pepper"]
+    },
+    {
+      "id": "pasta_bake",
+      "name": "Pasta Bake (Mince)",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "bolognese",
+      "carb": "penne_pasta",
+      "carb_portions": [40, 80, 120, 160],
+      "image": "pasta-bake-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, mix with cooked {carb_weight}g {carb_name}, top with cheese, bake 15 min.",
+      "appropriate_extras": ["cheddar_cheese", "mushrooms", "onion", "bell_pepper"]
+    },
+    {
+      "id": "beef_burgers",
+      "name": "Beef Burgers",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "nandos_medium",
+      "carb": "brioche_bun",
+      "carb_portions": [1, 2, 3, 4],
+      "image": "beef-burgers-food",
+      "cooking_base": "Shape mince into patties, grill, brush with {sauce_weight}g {sauce_name}, serve in {carb_weight}x {carb_name} with extras.",
+      "appropriate_extras": ["cheddar_cheese", "lettuce", "tomato", "onion", "mushrooms"]
+    },
+    {
+      "id": "cottage_pie",
+      "name": "Cottage Pie",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "colmans_cottage_mix",
+      "carb": "white_potato",
+      "carb_portions": [100, 150, 200, 250, 300],
+      "image": "cottage-pie-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, mix with {sauce_weight}g {sauce_name} and veg as desired, top with mashed {carb_weight}g {carb_name}, bake until golden.",
+      "appropriate_extras": ["cheddar_cheese", "onion", "bell_pepper", "mushrooms"]
+    },
+    {
+      "id": "chilli_con_carne",
+      "name": "Chilli Con Carne",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "chilli_con_carne",
+      "carb": "basmati_rice",
+      "carb_portions": [40, 80, 120, 160],
+      "image": "chilli-con-carne-rice-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, simmer 5 min. Cook {carb_weight}g {carb_name} separately. Serve chilli over rice.",
+      "appropriate_extras": ["cheddar_cheese", "sour_cream", "onion", "bell_pepper", "salsa"]
+    },
+    {
+      "id": "beef_burrito",
+      "name": "Beef Burrito",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "chilli_con_carne",
+      "carb": "large_tortilla",
+      "carb_portions": [1, 2, 3, 4],
+      "image": "burritos-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, fill {carb_weight}x {carb_name} with mix and extras, roll up.",
+      "appropriate_extras": ["cheddar_cheese", "sour_cream", "guacamole", "salsa", "lettuce", "tomato"]
+    },
+    {
+      "id": "beef_tacos",
+      "name": "Beef Tacos",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "chilli_con_carne",
+      "carb": "taco_shell",
+      "carb_portions": [1, 2, 3, 4, 5, 6],
+      "image": "tacos-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, fill {carb_weight}x {carb_name} with mix and extras.",
+      "appropriate_extras": ["cheddar_cheese", "sour_cream", "guacamole", "salsa", "lettuce", "tomato"]
+    },
+    {
+      "id": "loaded_nachos",
+      "name": "Loaded Nachos",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "chilli_con_carne",
+      "carb": "tortilla_chips",
+      "carb_portions": [50, 75, 100, 125, 150],
+      "image": "loaded-nachos-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, layer over {carb_weight}g {carb_name}, top with cheese, grill.",
+      "appropriate_extras": ["cheddar_cheese", "sour_cream", "guacamole", "salsa", "onion", "bell_pepper"]
+    },
+    {
+      "id": "stuffed_peppers",
+      "name": "Stuffed Peppers",
+      "category": "beef",
+      "proteins": ["beef_mince_5", "beef_mince_15", "beef_mince_20"],
+      "sauce": "chilli_con_carne",
+      "carb": "bell_peppers",
+      "carb_portions": [1, 2, 3, 4],
+      "image": "stuffed-peppers-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, fill halved {carb_weight}x {carb_name}, bake until tender.",
+      "appropriate_extras": ["cheddar_cheese", "onion", "mushrooms"]
+    },
+
+    {
+      "id": "chicken_pitta",
+      "name": "Chicken Pittas",
+      "category": "chicken",
+      "proteins": ["chicken_breast", "chicken_thigh"],
+      "sauce": "nandos_medium",
+      "carb": "pitta_bread",
+      "carb_portions": [1, 2, 3, 4],
+      "image": "chicken-pitta-food",
+      "cooking_base": "Grill chicken, brush with {sauce_weight}g {sauce_name}, fill {carb_weight}x {carb_name} with extras.",
+      "appropriate_extras": ["lettuce", "tomato", "onion", "cheddar_cheese"]
+    },
+    {
+      "id": "chicken_burgers",
+      "name": "Chicken Burgers",
+      "category": "chicken",
+      "proteins": ["chicken_breast", "chicken_thigh"],
+      "sauce": "nandos_medium",
+      "carb": "brioche_bun",
+      "carb_portions": [1, 2, 3, 4],
+      "image": "chicken-burgers-food",
+      "cooking_base": "Grill chicken, brush with {sauce_weight}g {sauce_name}, serve in {carb_weight}x {carb_name} with extras.",
+      "appropriate_extras": ["cheddar_cheese", "lettuce", "tomato", "onion", "mushrooms"]
+    },
+    {
+      "id": "chicken_curry",
+      "name": "Chicken Curry",
+      "category": "chicken",
+      "proteins": ["chicken_breast", "chicken_thigh", "chicken_drumstick"],
+      "sauce_options": ["butter_chicken", "tikka_masala", "korma"],
+      "carb": "basmati_rice",
+      "carb_portions": [40, 80, 120, 160],
+      "image": "chicken-curry-rice-food",
+      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, simmer 8 min. Cook {carb_weight}g {carb_name} separately. Serve curry over rice.",
+      "appropriate_extras": ["mini_naan", "onion", "bell_pepper", "mushrooms"]
+    },
+    {
+      "id": "chicken_teriyaki",
+      "name": "Chicken Teriyaki",
+      "category": "chicken",
+      "proteins": ["chicken_breast", "chicken_thigh", "chicken_drumstick"],
+      "sauce": "teriyaki",
+      "carb": "basmati_rice",
+      "carb_portions": [40, 80, 120, 160],
+      "image": "chicken-teriyaki-rice-food",
+      "cooking_base": "Marinate {protein_weight}g {protein_name} with {sauce_weight}g {sauce_name}. Cook chicken until done. Cook {carb_weight}g {carb_name} separately. Serve teriyaki chicken over rice.",
+      "appropriate_extras": ["bell_pepper", "onion", "mushrooms"]
+    },
+    {
+      "id": "sweet_sour_stir_fry",
+      "name": "Sweet and Sour Stir Fry",
+      "category": "chicken",
+      "proteins": ["chicken_breast", "chicken_thigh", "chicken_drumstick"],
+      "sauce": "sweet_sour",
+      "carb": "egg_noodles",
+      "carb_portions": [50, 100, 150, 200],
+      "image": "chicken-stir-fry-food",
+      "cooking_base": "Slice chicken, stir fry with {sauce_weight}g {sauce_name} and extras, serve over {carb_weight}g {carb_name}.",
+      "appropriate_extras": ["bell_pepper", "onion", "mushrooms"]
+    },
+    {
+      "id": "chicken_fajitas",
+      "name": "Chicken Fajitas",
+      "category": "chicken",
+      "proteins": ["chicken_breast", "chicken_thigh", "chicken_drumstick"],
+      "sauce": "nandos_medium",
+      "carb": "mini_tortilla",
+      "carb_portions": [1, 2, 3, 4, 5, 6],
+      "image": "chicken-fajitas-food",
+      "cooking_base": "Slice chicken, marinate with {sauce_weight}g {sauce_name}, stir fry with extras, fill {carb_weight}x {carb_name}.",
+      "appropriate_extras": ["cheddar_cheese", "sour_cream", "guacamole", "salsa", "lettuce", "onion", "bell_pepper"]
+    }
+  ]
+}
