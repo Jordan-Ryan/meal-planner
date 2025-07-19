@@ -447,6 +447,7 @@
     box-shadow: var(--shadow);
     background: var(--surface-color);
     margin: 1rem 0;
+    position: relative;
 }
 
 .table {
@@ -454,6 +455,7 @@
     min-width: 600px; /* Ensure table doesn't get too cramped */
     border-collapse: collapse;
     background: var(--surface-color);
+    table-layout: fixed; /* Help with consistent column widths */
 }
 
 .table th,
