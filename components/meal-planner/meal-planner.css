@@ -205,20 +205,29 @@
     background: var(--surface-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    overflow-x: auto;
+    overflow-x: scroll !important;
     margin-bottom: 2rem;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    /* Debug styles */
+    border: 2px solid red;
 }
 
 /* Table Container for Horizontal Scrolling */
 .table-container {
-    overflow-x: auto;
+    overflow-x: scroll !important;
     -webkit-overflow-scrolling: touch;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     background: var(--surface-color);
     margin: 1rem 0;
     position: relative;
+    width: 100%;
+    max-width: 100%;
+    /* Debug styles */
+    border: 2px solid blue;
 }
 
 .nutrition-summary h3 {
@@ -396,10 +405,12 @@
 /* Nutrition Table - Specific styles for meal planner */
 .nutrition-table {
     width: 100%;
-    min-width: 800px; /* Ensure table has minimum width for scrolling */
+    min-width: 2000px !important; /* Much wider to force scrolling */
     border-collapse: collapse;
     background: var(--surface-color);
     table-layout: fixed; /* Help with consistent column widths */
+    /* Debug styles */
+    border: 2px solid green;
 }
 
 .nutrition-table th,
@@ -408,7 +419,7 @@
     text-align: center !important;
     border: 1px solid var(--border-color) !important;
     white-space: nowrap !important; /* Prevent text wrapping */
-    min-width: 120px !important; /* Ensure minimum column width */
+    min-width: 200px !important; /* Much wider columns */
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
@@ -428,7 +439,7 @@
 
 /* Ensure nutrition table has proper styling and overrides generic table styles */
 .nutrition-table-container .nutrition-table {
-    min-width: 800px !important;
+    min-width: 2000px !important;
     white-space: nowrap !important;
     width: 100% !important;
     border-collapse: collapse !important;
@@ -442,7 +453,7 @@
     text-align: center !important;
     border: 1px solid var(--border-color) !important;
     white-space: nowrap !important;
-    min-width: 120px !important;
+    min-width: 200px !important;
 }
 
 .nutrition-table .protein-label {
@@ -601,18 +612,28 @@
     
     .nutrition-table-container {
         margin-bottom: 1rem;
-        overflow-x: auto;
+        overflow-x: scroll !important;
         -webkit-overflow-scrolling: touch;
         border-radius: 0;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+    }
+    
+    .table-container {
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        max-width: 100%;
     }
     
     .nutrition-table {
-        min-width: 600px; /* Smaller minimum width for mobile */
+        min-width: 1500px !important; /* Force scrolling on mobile - much wider than viewport */
     }
     
     .nutrition-table th,
     .nutrition-table td {
-        min-width: 100px !important; /* Smaller column width for mobile */
+        min-width: 150px !important; /* Wider columns for mobile */
         padding: 0.25rem !important;
         font-size: 0.875rem;
     }

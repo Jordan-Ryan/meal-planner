@@ -386,6 +386,16 @@ class MealPlanner {
         
         tableContainer.appendChild(table);
         container.appendChild(tableContainer);
+        
+        // Force table to have minimum width for horizontal scrolling
+        const nutritionTable = tableContainer.querySelector('.nutrition-table');
+        if (nutritionTable) {
+            nutritionTable.style.minWidth = '2000px';
+            nutritionTable.style.width = '2000px';
+            // Force a reflow to ensure the scroll container recognizes the width
+            nutritionTable.offsetHeight;
+        }
+        
         this.highlightTargetMatches(meal);
     }
     
