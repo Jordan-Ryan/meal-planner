@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meals Manager - Example</title>
+    <link rel="stylesheet" href="meals-manager.css">
+    <style>
+        /* Theme selector styles */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .theme-selector label {
+            font-weight: 500;
+            margin-right: 8px;
+            color: #2d3748;
+        }
+        
+        .theme-selector select {
+            padding: 4px 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            background: white;
+            color: #2d3748;
+        }
+        
+        .theme-selector select:focus {
+            outline: none;
+            border-color: #4fd1c5;
+            box-shadow: 0 0 0 2px rgba(79, 209, 197, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme selector -->
+    <div class="theme-selector">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+    </div>
+    
+    <!-- Container for the meals manager component -->
+    <div id="meals-manager-container"></div>
+    
+    <!-- Load the component -->
+    <script src="meals-manager.js"></script>
+    <script>
+        let mealsManager;
+        
+        // Initialize the meals manager component
+        function initializeMealsManager(theme = 'default') {
+            // Destroy existing instance if it exists
+            if (mealsManager) {
+                mealsManager.destroy();
+            }
+            
+            // Create new instance
+            mealsManager = new MealsManager('meals-manager-container', {
+                theme: theme,
+                dataPath: '../../data/',
+                imagesPath: '../../images/',
+                onMealUpdate: (meals) => {
+                    console.log('Meals updated:', meals);
+                },
+                onMealDelete: (id) => {
+                    console.log('Meal deleted:', id);
+                },
+                onMealAdd: (meal) => {
+                    console.log('Meal added:', meal);
+                }
+            });
+        }
+        
+        // Initialize with default theme
+        initializeMealsManager();
+        
+        // Theme selector event listener
+        document.getElementById('theme-select').addEventListener('change', (e) => {
+            const newTheme = e.target.value;
+            initializeMealsManager(newTheme);
+            console.log('Theme changed to:', newTheme);
+        });
+    </script>
+</body>
+</html> 

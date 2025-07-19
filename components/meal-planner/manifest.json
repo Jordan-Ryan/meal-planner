@@ -1,0 +1,100 @@
+{
+  "name": "meal-planner",
+  "version": "1.0.0",
+  "description": "A modular, reusable meal planning component for multi-app platforms",
+  "author": "Jordan Ryan",
+  "license": "MIT",
+  "main": "meal-planner.js",
+  "styles": "meal-planner.css",
+  "dependencies": [],
+  "files": [
+    "meal-planner.js",
+    "meal-planner.css",
+    "manifest.json",
+    "README.md"
+  ],
+  "config": {
+    "containerId": {
+      "type": "string",
+      "required": true,
+      "description": "ID of the HTML element where the component will be mounted"
+    },
+            "theme": {
+            "type": "string",
+            "default": "default",
+            "options": ["default", "dark", "blue", "green"],
+            "description": "Visual theme for the component"
+        },
+    "dataPath": {
+      "type": "string",
+      "default": "data/",
+      "description": "Path to the data directory containing JSON files"
+    },
+    "imagesPath": {
+      "type": "string",
+      "default": "images/",
+      "description": "Path to the images directory"
+    },
+    "onMealSelect": {
+      "type": "function",
+      "optional": true,
+      "description": "Callback function called when a meal is selected"
+    },
+    "onNutritionUpdate": {
+      "type": "function",
+      "optional": true,
+      "description": "Callback function called when nutrition targets are updated"
+    }
+  },
+  "dataFiles": {
+    "required": [
+      "ingredients.json",
+      "meals.json",
+      "portion_steps.json",
+      "meal_extras.json"
+    ],
+    "description": "JSON data files required for the component to function"
+  },
+  "methods": {
+    "getSelectedMeal": {
+      "description": "Returns the currently selected meal object",
+      "returns": "object|null"
+    },
+    "getNutritionTargets": {
+      "description": "Returns the current nutrition targets",
+      "returns": "object"
+    },
+    "setNutritionTargets": {
+      "description": "Sets the nutrition targets",
+      "parameters": {
+        "targets": {
+          "type": "object",
+          "description": "Object with calories, carbs, protein, fat properties"
+        }
+      }
+    },
+    "destroy": {
+      "description": "Cleans up the component and removes it from the DOM"
+    }
+  },
+  "events": {
+    "mealSelect": {
+      "description": "Fired when a meal is selected",
+      "data": "meal object"
+    },
+    "nutritionUpdate": {
+      "description": "Fired when nutrition targets are updated",
+      "data": "nutrition targets object"
+    }
+  },
+  "examples": {
+    "basic": {
+      "description": "Basic usage with default settings",
+      "code": "new MealPlanner('meal-planner-container')"
+    },
+    "customized": {
+      "description": "Usage with custom theme and callbacks",
+      "code": "new MealPlanner('meal-planner-container', {\n  theme: 'light',\n  dataPath: '/api/meal-data/',\n  onMealSelect: (meal) => console.log('Selected:', meal),\n  onNutritionUpdate: (targets) => console.log('Targets:', targets)\n})"
+    }
+  }
+} 

@@ -9,7 +9,7 @@
       "carb": "penne_pasta",
       "carb_portions": [40, 80, 120, 160],
       "image": "spaghetti-bolognese-food",
-      "cooking_base": "Brown {protein_weight}g {protein_name}, add {sauce_weight}g {sauce_name}, simmer 5 min. Cook {carb_weight}g {carb_name} separately. Combine and serve.",
+      "cooking_base": "Brown the [MEAT] in a pan, add the [SAUCE] and simmer for 5 minutes. Meanwhile, cook the [CARB] separately according to package instructions. Combine and serve.",
       "appropriate_extras": ["cheddar_cheese", "mushrooms", "onion", "bell_pepper"]
     },
     {
@@ -21,7 +21,7 @@
       "carb": "penne_pasta",
       "carb_portions": [40, 80, 120, 160],
       "image": "meatballs-pasta-food",
-      "cooking_base": "Shape mince into balls, brown, add {sauce_weight}g {sauce_name}, simmer 10 min. Cook {carb_weight}g {carb_name} separately. Serve together.",
+      "cooking_base": "Shape the [MEAT] into balls and brown in a pan. Add the [SAUCE] and simmer for 10 minutes. Meanwhile, cook the [CARB] separately. Serve the meatballs with the [CARB].",
       "appropriate_extras": ["cheddar_cheese", "mushrooms", "onion", "bell_pepper"]
     },
     {
@@ -130,7 +130,7 @@
       "carb": "pitta_bread",
       "carb_portions": [1, 2, 3, 4],
       "image": "chicken-pitta-food",
-      "cooking_base": "Grill chicken, brush with {sauce_weight}g {sauce_name}, fill {carb_weight}x {carb_name} with extras.",
+      "cooking_base": "Grill the [CHICKEN] until cooked through, brush with the [MARINADE], and fill the [BREAD] with the chicken and your chosen extras.",
       "appropriate_extras": ["lettuce", "tomato", "onion", "cheddar_cheese"]
     },
     {
@@ -166,7 +166,7 @@
       "carb": "basmati_rice",
       "carb_portions": [40, 80, 120, 160],
       "image": "chicken-teriyaki-rice-food",
-      "cooking_base": "Marinate {protein_weight}g {protein_name} with {sauce_weight}g {sauce_name}. Cook chicken until done. Cook {carb_weight}g {carb_name} separately. Serve teriyaki chicken over rice.",
+      "cooking_base": "Marinate the [CHICKEN] with the [MARINADE] for 30 minutes. Cook the chicken until done. Meanwhile, cook the [RICE] separately. Serve the teriyaki chicken over the rice.",
       "appropriate_extras": ["bell_pepper", "onion", "mushrooms"]
     },
     {

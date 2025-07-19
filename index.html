@@ -1,50 +1,928 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Meal Planner</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <link rel="stylesheet" href="components/meal-planner/meal-planner.css">
+    <style>
+        /* Global theme variables */
+        :root {
+            --primary-color: #4fd1c5;
+            --secondary-color: #38b2ac;
+            --background-color: #000000;
+            --surface-color: #1a1a1a;
+            --text-color: #ffffff;
+            --text-secondary: #888888;
+            --border-color: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --border-radius: 8px;
+            --transition: all 0.2s ease-in-out;
+        }
+        
+        /* Theme variations */
+        [data-theme="default"] {
+            --primary-color: #4fd1c5;
+            --secondary-color: #38b2ac;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #2d3748;
+            --text-secondary: #4a5568;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        [data-theme="dark"] {
+            --primary-color: #4fd1c5;
+            --secondary-color: #38b2ac;
+            --background-color: #000000;
+            --surface-color: #1a1a1a;
+            --text-color: #ffffff;
+            --text-secondary: #888888;
+            --border-color: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        [data-theme="blue"] {
+            --primary-color: #3182ce;
+            --secondary-color: #2c5282;
+        }
+        
+        [data-theme="green"] {
+            --primary-color: #38a169;
+            --secondary-color: #2f855a;
+        }
+        
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+        
+        /* Enhanced button styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            white-space: nowrap;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 209, 197, 0.25);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px 0 rgba(79, 209, 197, 0.35);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--surface-color);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(245, 101, 101, 0.25);
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px 0 rgba(245, 101, 101, 0.35);
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+        
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+        
+        /* Enhanced filter styles */
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 209, 197, 0.25);
+        }
+        
+        .filter-btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Modern Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        /* Modern Input Styles */
+        .input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            font-size: 0.875rem;
+            color: var(--text-color);
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            font-family: inherit;
+            position: relative;
+        }
+        
+        .input:hover {
+            border-color: var(--primary-color);
+            background: var(--background-color);
+        }
+        
+        .input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(79, 209, 197, 0.15);
+            background: var(--background-color);
+            transform: translateY(-1px);
+        }
+        
+        .input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        
+        /* Modern Select Styles */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .select-wrapper::after {
+            content: '⌄';
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            pointer-events: none;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .select-wrapper:focus-within::after {
+            transform: translateY(-50%) rotate(180deg);
+            color: var(--primary-color);
+        }
+        
+        select.input {
+            appearance: none;
+            padding-right: 3rem;
+            cursor: pointer;
+        }
+        
+        select.input:hover {
+            border-color: var(--primary-color);
+        }
+        
+        select.input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(79, 209, 197, 0.15);
+        }
+        
+        /* Modern Textarea Styles */
+        textarea.input {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+        
+        /* Modern Checkbox and Radio Styles */
+        .checkbox-wrapper, .radio-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+        
+        .checkbox-wrapper input[type="checkbox"],
+        .radio-wrapper input[type="radio"] {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.25rem;
+            background: var(--surface-color);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .radio-wrapper input[type="radio"] {
+            border-radius: 50%;
+        }
+        
+        .checkbox-wrapper input[type="checkbox"]:checked,
+        .radio-wrapper input[type="radio"]:checked {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .checkbox-wrapper input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .radio-wrapper input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0.5rem;
+            height: 0.5rem;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        /* Modern Form Actions */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Enhanced Button Spacing */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 2.75rem;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            min-height: 2.25rem;
+        }
+        
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            min-height: 3.25rem;
+        }
+        
+        /* Button Variants */
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5bb8a8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 209, 197, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--surface-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--background-color);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #e53e3e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 101, 101, 0.3);
+        }
+        
+        /* Filter Buttons */
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            margin: 0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--surface-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            min-height: 2.25rem;
+        }
+        
+        .filter-btn:hover {
+            background: rgba(79, 209, 197, 0.05);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(79, 209, 197, 0.1);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(79, 209, 197, 0.3);
+        }
+        
+        /* Action Buttons in Tables */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        /* Detail Actions */
+        .detail-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        
+        /* Header Actions */
+        .meals-header, .ingredients-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+        
+        .search-bar .input {
+            width: 100%;
+        }
+        
+        /* Controls Layout */
+        .meals-controls, .ingredients-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+        }
+        
+        @media (min-width: 768px) {
+            .meals-controls, .ingredients-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .search-bar {
+                margin-bottom: 0;
+                flex: 1;
+                margin-right: 1rem;
+            }
+            
+            .filter-group {
+                flex-shrink: 0;
+            }
+        }
+        
+        /* Modern Ingredient Form Items */
+        .ingredients-form-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .ingredient-form-item {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .ingredient-form-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ingredient-form-item .ingredient-select {
+            flex: 1;
+        }
+        
+        .ingredient-form-item .ingredient-amount {
+            width: 120px;
+        }
+        
+        /* Modern Form Validation */
+        .input:invalid {
+            border-color: #f56565;
+        }
+        
+        .input:invalid:focus {
+            box-shadow: 0 0 0 4px rgba(245, 101, 101, 0.15);
+        }
+        
+        .form-error {
+            color: #f56565;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .form-error::before {
+            content: '⚠';
+            font-size: 0.875rem;
+        }
+        
+        /* Enhanced table styles */
+        .table-container {
+            background: var(--surface-color);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface-color);
+        }
+        
+        .table th {
+            background: var(--background-color);
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 0.875rem;
+        }
+        
+        .table tbody tr {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .table tbody tr:hover {
+            background: rgba(79, 209, 197, 0.03);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .badge-primary {
+            background: rgba(79, 209, 197, 0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(79, 209, 197, 0.2);
+        }
+        
+        .badge-success {
+            background: rgba(72, 187, 120, 0.1);
+            color: #48bb78;
+            border: 1px solid rgba(72, 187, 120, 0.2);
+        }
+        
+        .badge-warning {
+            background: rgba(237, 137, 54, 0.1);
+            color: #ed8936;
+            border: 1px solid rgba(237, 137, 54, 0.2);
+        }
+        
+        .badge-danger {
+            background: rgba(245, 101, 101, 0.1);
+            color: #f56565;
+            border: 1px solid rgba(245, 101, 101, 0.2);
+        }
+        
+        /* Header and navigation styles */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .app-navigation {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .nav-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Theme selector styles */
+        .theme-selector {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-selector label {
+            font-weight: 500;
+            margin-right: 8px;
+            color: white;
+        }
+        
+        .theme-selector select {
+            padding: 4px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d3748;
+        }
+        
+        .theme-selector select:focus {
+            outline: none;
+            border-color: #4fd1c5;
+            box-shadow: 0 0 0 2px rgba(79, 209, 197, 0.2);
+        }
+        
+        /* Component container styles */
+        .component-container {
+            display: none;
+            min-height: calc(100vh - 80px);
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+        
+        .component-container.active {
+            display: block;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .app-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .app-navigation {
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                font-size: 0.875rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Meal Planner</h1>
+    <!-- Header with navigation -->
+    <header class="app-header">
+        <div class="header-content">
+            <h1>🍽️ Meal Planner Platform</h1>
+            <nav class="app-navigation">
+                <button class="nav-btn active" data-component="meal-planner">Meal Planner</button>
+                <button class="nav-btn" data-component="ingredients-manager">Ingredients</button>
+                <button class="nav-btn" data-component="meals-manager">Meals</button>
+            </nav>
+        </div>
+        <div class="theme-selector">
+            <label for="theme-select">Theme:</label>
+            <select id="theme-select">
+                <option value="default">Default</option>
+                <option value="dark">Dark</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+            </select>
+        </div>
+    </header>
     
-  </header>
-  <main>
-    <nav class="filter-bar">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="beef">Beef Mince</button>
-      <button class="filter-btn" data-filter="chicken">Chicken</button>
-    </nav>
-    <section id="meal-gallery" class="meal-gallery"></section>
-    <section id="meal-detail-page" class="hidden">
-      <div class="meal-page">
-        <header class="meal-header">
-          <button class="close-detail" id="close-detail-btn" aria-label="Back to gallery">&larr; Back</button>
-          <img id="meal-detail-img" class="meal-banner" alt="Meal image" />
-          <h1 id="meal-detail-name" class="meal-title"></h1>
-        </header>
-        <section class="nutrition-targets">
-          <div class="target-inputs">
-            <input type="number" id="target-calories-detail" placeholder="Calories">
-            <input type="number" id="target-carbs-detail" placeholder="Carbs (g)">
-            <input type="number" id="target-protein-detail" placeholder="Protein (g)">
-            <input type="number" id="target-fat-detail" placeholder="Fat (g)">
-          </div>
-        </section>
-        <section class="nutrition-table-container">
-          <!-- Nutrition table will be rendered here -->
-        </section>
-        <section class="cooking-panel">
-          <!-- Cooking instructions and customization -->
-        </section>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <p>Accessible, mobile-first meal planner. Images: Local generated images.</p>
-  </footer>
-  <script src="app.js"></script>
+    <!-- Component containers -->
+    <div id="meal-planner-container" class="component-container active"></div>
+    <div id="ingredients-manager-container" class="component-container"></div>
+    <div id="meals-manager-container" class="component-container"></div>
+    
+    <!-- Load all components -->
+    <script src="components/meal-planner/meal-planner.js"></script>
+    <script src="components/ingredients-manager/ingredients-manager.js"></script>
+    <script src="components/meals-manager/meals-manager.js"></script>
+    <script>
+        let currentComponent = null;
+        let currentTheme = 'default';
+        
+        // Component management
+        function switchComponent(componentName) {
+            // Update navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.component === componentName);
+            });
+            
+            // Update component containers
+            document.querySelectorAll('.component-container').forEach(container => {
+                container.classList.toggle('active', container.id === `${componentName}-container`);
+            });
+            
+            // Destroy current component
+            if (currentComponent) {
+                currentComponent.destroy();
+                currentComponent = null;
+            }
+            
+            // Initialize new component
+            initializeComponent(componentName, currentTheme);
+        }
+        
+        function initializeComponent(componentName, theme) {
+            const containerId = `${componentName}-container`;
+            
+            try {
+                switch (componentName) {
+                    case 'meal-planner':
+                        currentComponent = new MealPlanner(containerId, {
+                            theme: theme,
+                            dataPath: 'data/',
+                            imagesPath: 'images/',
+                            onMealSelect: (meal) => {
+                                console.log('Meal selected:', meal.name);
+                            },
+                            onNutritionUpdate: (targets) => {
+                                console.log('Nutrition targets updated:', targets);
+                            }
+                        });
+                        break;
+                        
+                    case 'ingredients-manager':
+                        currentComponent = new IngredientsManager(containerId, {
+                            theme: theme,
+                            dataPath: 'data/',
+                            onIngredientUpdate: (ingredients) => {
+                                console.log('Ingredients updated:', ingredients);
+                            },
+                            onIngredientDelete: (id) => {
+                                console.log('Ingredient deleted:', id);
+                            },
+                            onIngredientAdd: (ingredient) => {
+                                console.log('Ingredient added:', ingredient);
+                            }
+                        });
+                        break;
+                        
+                    case 'meals-manager':
+                        currentComponent = new MealsManager(containerId, {
+                            theme: theme,
+                            dataPath: 'data/',
+                            imagesPath: 'images/',
+                            onMealUpdate: (meals) => {
+                                console.log('Meals updated:', meals);
+                            },
+                            onMealDelete: (id) => {
+                                console.log('Meal deleted:', id);
+                            },
+                            onMealAdd: (meal) => {
+                                console.log('Meal added:', meal);
+                            }
+                        });
+                        break;
+                        
+                    default:
+                        console.error('Unknown component:', componentName);
+                        return;
+                }
+                
+                console.log(`${componentName} component initialized with theme: ${theme}`);
+            } catch (error) {
+                console.error(`Error initializing ${componentName}:`, error);
+            }
+        }
+        
+        function changeTheme(newTheme) {
+            currentTheme = newTheme;
+            
+            // Apply theme to body
+            document.body.setAttribute('data-theme', newTheme);
+            
+            // Reinitialize current component with new theme
+            const activeBtn = document.querySelector('.nav-btn.active');
+            if (activeBtn) {
+                const componentName = activeBtn.dataset.component;
+                switchComponent(componentName);
+            }
+        }
+        
+        // Initialize platform
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const componentName = e.target.dataset.component;
+                    switchComponent(componentName);
+                });
+            });
+            
+            // Set up theme selector
+            document.getElementById('theme-select').addEventListener('change', (e) => {
+                changeTheme(e.target.value);
+            });
+            
+            // Initialize with dark theme
+            changeTheme('dark');
+            
+            // Initialize with meal planner
+            switchComponent('meal-planner');
+        });
+    </script>
 </body>
 </html> 

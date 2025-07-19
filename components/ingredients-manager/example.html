@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients Manager - Example</title>
+    <link rel="stylesheet" href="ingredients-manager.css">
+    <style>
+        /* Theme selector styles */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .theme-selector label {
+            font-weight: 500;
+            margin-right: 8px;
+            color: #2d3748;
+        }
+        
+        .theme-selector select {
+            padding: 4px 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            background: white;
+            color: #2d3748;
+        }
+        
+        .theme-selector select:focus {
+            outline: none;
+            border-color: #4fd1c5;
+            box-shadow: 0 0 0 2px rgba(79, 209, 197, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme selector -->
+    <div class="theme-selector">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+    </div>
+    
+    <!-- Container for the ingredients manager component -->
+    <div id="ingredients-manager-container"></div>
+    
+    <!-- Load the component -->
+    <script src="ingredients-manager.js"></script>
+    <script>
+        let ingredientsManager;
+        
+        // Initialize the ingredients manager component
+        function initializeIngredientsManager(theme = 'default') {
+            // Destroy existing instance if it exists
+            if (ingredientsManager) {
+                ingredientsManager.destroy();
+            }
+            
+            // Create new instance
+            ingredientsManager = new IngredientsManager('ingredients-manager-container', {
+                theme: theme,
+                dataPath: '../../data/',
+                onIngredientUpdate: (ingredients) => {
+                    console.log('Ingredients updated:', ingredients);
+                },
+                onIngredientDelete: (id) => {
+                    console.log('Ingredient deleted:', id);
+                },
+                onIngredientAdd: (ingredient) => {
+                    console.log('Ingredient added:', ingredient);
+                }
+            });
+        }
+        
+        // Initialize with default theme
+        initializeIngredientsManager();
+        
+        // Theme selector event listener
+        document.getElementById('theme-select').addEventListener('change', (e) => {
+            const newTheme = e.target.value;
+            initializeIngredientsManager(newTheme);
+            console.log('Theme changed to:', newTheme);
+        });
+    </script>
+</body>
+</html> 

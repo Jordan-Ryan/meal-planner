@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-App Platform Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .platform-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .platform-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .platform-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .app-navigation {
+            background: white;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .app-nav-btn {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            color: #495057;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .app-nav-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+        
+        .app-nav-btn.active {
+            background: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+        
+        .app-container {
+            min-height: calc(100vh - 200px);
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .app-placeholder {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6c757d;
+        }
+        
+        .app-placeholder h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+        
+        .app-placeholder p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .app-placeholder .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .component-info {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .component-info h3 {
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .component-info code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        .platform-controls {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .platform-controls h3 {
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+        
+        .control-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .control-group label {
+            font-weight: 500;
+            min-width: 100px;
+        }
+        
+        .control-group select,
+        .control-group input {
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+        
+        .control-group button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .control-group button:hover {
+            background: #218838;
+        }
+        
+        .control-group button.danger {
+            background: #dc3545;
+        }
+        
+        .control-group button.danger:hover {
+            background: #c82333;
+        }
+        
+        #meal-planner-container {
+            min-height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="platform-header">
+        <h1>🚀 Multi-App Platform</h1>
+        <p>A modular component-based platform for multiple applications</p>
+    </div>
+    
+    <nav class="app-navigation">
+        <button class="app-nav-btn active" data-app="meal-planner">🍽️ Meal Planner</button>
+        <button class="app-nav-btn" data-app="ingredients-manager">🥕 Ingredients Manager</button>
+        <button class="app-nav-btn" data-app="meals-manager">🍳 Meals Manager</button>
+        <button class="app-nav-btn" data-app="workout-tracker">💪 Workout Tracker</button>
+        <button class="app-nav-btn" data-app="budget-manager">💰 Budget Manager</button>
+        <button class="app-nav-btn" data-app="task-organizer">📋 Task Organizer</button>
+        <button class="app-nav-btn" data-app="weather-dashboard">🌤️ Weather Dashboard</button>
+    </nav>
+    
+    <main class="app-container">
+        <div class="component-info">
+            <h3>🔧 Component System Active</h3>
+            <p>This platform uses a modular component system. Each app is a separate component that can be loaded, unloaded, and themed independently.</p>
+            <p><strong>Current App:</strong> <span id="current-app">Meal Planner</span></p>
+        </div>
+        
+        <div class="platform-controls">
+            <h3>🎛️ Platform Controls</h3>
+            <div class="control-group">
+                <label>Theme:</label>
+                <select id="theme-select">
+                    <option value="default">Default</option>
+                    <option value="dark">Dark</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+                <button onclick="changeTheme()">Apply Theme</button>
+            </div>
+            <div class="control-group">
+                <label>Component:</label>
+                <select id="component-select">
+                    <option value="meal-planner">Meal Planner</option>
+                    <option value="ingredients-manager">Ingredients Manager</option>
+                    <option value="meals-manager">Meals Manager</option>
+                    <option value="workout-tracker">Workout Tracker</option>
+                    <option value="budget-manager">Budget Manager</option>
+                    <option value="task-organizer">Task Organizer</option>
+                    <option value="weather-dashboard">Weather Dashboard</option>
+                </select>
+                <button onclick="loadComponent()">Load Component</button>
+                <button class="danger" onclick="unloadComponent()">Unload Component</button>
+            </div>
+            <div class="control-group">
+                <label>Status:</label>
+                <span id="component-status">Ready</span>
+            </div>
+        </div>
+        
+        <!-- App Containers -->
+        <div id="meal-planner-container" class="app-content active"></div>
+        
+        <div id="ingredients-manager-container" class="app-content"></div>
+        
+        <div id="meals-manager-container" class="app-content"></div>
+        
+        <div id="workout-tracker-container" class="app-content">
+            <div class="app-placeholder">
+                <div class="icon">💪</div>
+                <h2>Workout Tracker</h2>
+                <p>Track your fitness journey with this comprehensive workout tracking component.</p>
+                <p><em>Component not yet implemented</em></p>
+            </div>
+        </div>
+        
+        <div id="budget-manager-container" class="app-content">
+            <div class="app-placeholder">
+                <div class="icon">💰</div>
+                <h2>Budget Manager</h2>
+                <p>Manage your finances with this powerful budgeting and expense tracking component.</p>
+                <p><em>Component not yet implemented</em></p>
+            </div>
+        </div>
+        
+        <div id="task-organizer-container" class="app-content">
+            <div class="app-placeholder">
+                <div class="icon">📋</div>
+                <h2>Task Organizer</h2>
+                <p>Organize your tasks and projects with this flexible task management component.</p>
+                <p><em>Component not yet implemented</em></p>
+            </div>
+        </div>
+        
+        <div id="weather-dashboard-container" class="app-content">
+            <div class="app-placeholder">
+                <div class="icon">🌤️</div>
+                <h2>Weather Dashboard</h2>
+                <p>Stay informed with current weather conditions and forecasts.</p>
+                <p><em>Component not yet implemented</em></p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Load Component Registry -->
+    <script src="components/component-registry.js"></script>
+    
+    <!-- Load Components -->
+    <script src="components/meal-planner/meal-planner.js"></script>
+    <script src="components/ingredients-manager/ingredients-manager.js"></script>
+    <script src="components/meals-manager/meals-manager.js"></script>
+    
+    <script>
+        // Platform Management
+        let currentApp = 'meal-planner';
+        let currentComponent = null;
+        
+        // Initialize platform
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up navigation
+            setupNavigation();
+            
+            // Load initial component
+            loadMealPlanner();
+            
+            // Update status
+            updateStatus('Platform initialized');
+        });
+        
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.app-nav-btn');
+            
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const appName = btn.dataset.app;
+                    switchApp(appName);
+                });
+            });
+        }
+        
+        function switchApp(appName) {
+            // Update navigation
+            document.querySelectorAll('.app-nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.app === appName);
+            });
+            
+            // Update app containers
+            document.querySelectorAll('.app-content').forEach(container => {
+                container.classList.toggle('active', container.id === `${appName}-container`);
+            });
+            
+            // Update current app
+            currentApp = appName;
+            document.getElementById('current-app').textContent = getAppDisplayName(appName);
+            
+            // Load appropriate component
+            if (appName === 'meal-planner') {
+                loadMealPlanner();
+            } else if (appName === 'ingredients-manager') {
+                loadIngredientsManager();
+            } else if (appName === 'meals-manager') {
+                loadMealsManager();
+            } else {
+                // For other apps, show placeholder for now
+                updateStatus(`${getAppDisplayName(appName)} - Placeholder mode`);
+            }
+        }
+        
+        function getAppDisplayName(appName) {
+            const names = {
+                'meal-planner': 'Meal Planner',
+                'ingredients-manager': 'Ingredients Manager',
+                'meals-manager': 'Meals Manager',
+                'workout-tracker': 'Workout Tracker',
+                'budget-manager': 'Budget Manager',
+                'task-organizer': 'Task Organizer',
+                'weather-dashboard': 'Weather Dashboard'
+            };
+            return names[appName] || appName;
+        }
+        
+        async function loadMealPlanner() {
+            try {
+                updateStatus('Loading Meal Planner component...');
+                
+                // Unload previous component if exists
+                if (currentComponent) {
+                    currentComponent.destroy();
+                }
+                
+                // Load meal planner component
+                currentComponent = new MealPlanner('meal-planner-container', {
+                    theme: document.getElementById('theme-select').value,
+                    dataPath: 'data/',
+                    imagesPath: 'images/',
+                    onMealSelect: (meal) => {
+                        updateStatus(`Selected meal: ${meal.name}`);
+                    },
+                    onNutritionUpdate: (targets) => {
+                        updateStatus(`Nutrition targets updated`);
+                    }
+                });
+                
+                updateStatus('Meal Planner component loaded successfully');
+            } catch (error) {
+                updateStatus(`Error loading component: ${error.message}`);
+                console.error('Component loading error:', error);
+            }
+        }
+        
+        async function loadIngredientsManager() {
+            try {
+                updateStatus('Loading Ingredients Manager component...');
+                
+                // Unload previous component if exists
+                if (currentComponent) {
+                    currentComponent.destroy();
+                }
+                
+                // Load ingredients manager component
+                currentComponent = new IngredientsManager('ingredients-manager-container', {
+                    theme: document.getElementById('theme-select').value,
+                    dataPath: 'data/',
+                    onIngredientUpdate: (ingredients) => {
+                        updateStatus(`Ingredients updated: ${ingredients.length} total`);
+                    },
+                    onIngredientDelete: (id) => {
+                        updateStatus(`Ingredient deleted: ${id}`);
+                    },
+                    onIngredientAdd: (ingredient) => {
+                        updateStatus(`Ingredient added: ${ingredient.name}`);
+                    }
+                });
+                
+                updateStatus('Ingredients Manager component loaded successfully');
+            } catch (error) {
+                updateStatus(`Error loading component: ${error.message}`);
+                console.error('Component loading error:', error);
+            }
+        }
+        
+        async function loadMealsManager() {
+            try {
+                updateStatus('Loading Meals Manager component...');
+                
+                // Unload previous component if exists
+                if (currentComponent) {
+                    currentComponent.destroy();
+                }
+                
+                // Load meals manager component
+                currentComponent = new MealsManager('meals-manager-container', {
+                    theme: document.getElementById('theme-select').value,
+                    dataPath: 'data/',
+                    imagesPath: 'images/',
+                    onMealUpdate: (meals) => {
+                        updateStatus(`Meals updated: ${meals.length} total`);
+                    },
+                    onMealDelete: (id) => {
+                        updateStatus(`Meal deleted: ${id}`);
+                    },
+                    onMealAdd: (meal) => {
+                        updateStatus(`Meal added: ${meal.name}`);
+                    }
+                });
+                
+                updateStatus('Meals Manager component loaded successfully');
+            } catch (error) {
+                updateStatus(`Error loading component: ${error.message}`);
+                console.error('Component loading error:', error);
+            }
+        }
+        
+        function changeTheme() {
+            const theme = document.getElementById('theme-select').value;
+            
+            if (currentComponent && currentComponent.options) {
+                // Update component theme if it supports it
+                const componentElement = document.querySelector('.meal-planner-component');
+                if (componentElement) {
+                    componentElement.setAttribute('data-theme', theme);
+                }
+            }
+            
+            updateStatus(`Theme changed to: ${theme}`);
+        }
+        
+        function loadComponent() {
+            const componentName = document.getElementById('component-select').value;
+            
+            if (componentName === 'meal-planner') {
+                loadMealPlanner();
+            } else if (componentName === 'ingredients-manager') {
+                loadIngredientsManager();
+            } else if (componentName === 'meals-manager') {
+                loadMealsManager();
+            } else {
+                updateStatus(`${componentName} component not yet implemented`);
+            }
+        }
+        
+        function unloadComponent() {
+            if (currentComponent) {
+                currentComponent.destroy();
+                currentComponent = null;
+                updateStatus('Component unloaded');
+            } else {
+                updateStatus('No component to unload');
+            }
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('component-status').textContent = message;
+            console.log(`Platform Status: ${message}`);
+        }
+        
+        // Expose platform API globally
+        window.platformAPI = {
+            switchApp,
+            loadComponent,
+            unloadComponent,
+            changeTheme,
+            getCurrentApp: () => currentApp,
+            getCurrentComponent: () => currentComponent
+        };
+        
+        console.log('Multi-App Platform initialized');
+        console.log('Platform API available at window.platformAPI');
+    </script>
+</body>
+</html> 

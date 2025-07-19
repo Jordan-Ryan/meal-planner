@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner Component Example</title>
+    <link rel="stylesheet" href="meal-planner.css">
+    <style>
+        /* Example page styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .example-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .example-header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.5rem;
+        }
+        
+        .example-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .example-controls {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .example-controls label {
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        .example-controls select,
+        .example-controls button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .example-controls button {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .example-controls button:hover {
+            background: #0056b3;
+        }
+        
+        .example-info {
+            background: #e9ecef;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+        
+        .example-info code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        #meal-planner-container {
+            min-height: 100vh;
+        }
+        
+        .theme-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            border: 2px solid white;
+        }
+        
+        .theme-default { background: #4fd1c5; }
+        .theme-light { background: #38a169; }
+        .theme-blue { background: #3182ce; }
+        .theme-green { background: #38a169; }
+    </style>
+</head>
+<body>
+    <div class="example-header">
+        <h1>🍽️ Meal Planner Component</h1>
+        <p>A modular, reusable component for multi-app platforms</p>
+    </div>
+    
+    <div class="example-controls">
+        <div>
+            <label for="theme-select">Theme:</label>
+            <select id="theme-select">
+                <option value="default">
+                    <span class="theme-preview theme-default"></span>Default
+                </option>
+                <option value="dark">Dark</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="data-path">Data Path:</label>
+            <input type="text" id="data-path" value="../../data/" style="width: 150px;">
+        </div>
+        
+        <div>
+            <label for="images-path">Images Path:</label>
+            <input type="text" id="images-path" value="../../images/" style="width: 150px;">
+        </div>
+        
+        <button id="reload-btn">Reload Component</button>
+    </div>
+    
+    <div class="example-info">
+        <strong>Component Status:</strong> 
+        <span id="status">Initializing...</span>
+        <br>
+        <strong>Selected Meal:</strong> 
+        <span id="selected-meal">None</span>
+        <br>
+        <strong>Nutrition Targets:</strong> 
+        <span id="nutrition-targets">Not set</span>
+    </div>
+    
+    <div id="meal-planner-container"></div>
+    
+    <script src="meal-planner.js"></script>
+    <script>
+        // Example implementation
+        let mealPlanner = null;
+        
+        function initializeMealPlanner() {
+            const container = document.getElementById('meal-planner-container');
+            const theme = document.getElementById('theme-select').value;
+            const dataPath = document.getElementById('data-path').value;
+            const imagesPath = document.getElementById('images-path').value;
+            
+            // Destroy existing instance if it exists
+            if (mealPlanner) {
+                mealPlanner.destroy();
+            }
+            
+            // Create new instance
+            mealPlanner = new MealPlanner('meal-planner-container', {
+                theme: theme,
+                dataPath: dataPath,
+                imagesPath: imagesPath,
+                onMealSelect: (meal) => {
+                    document.getElementById('selected-meal').textContent = meal.name;
+                    document.getElementById('status').textContent = 'Meal selected';
+                },
+                onNutritionUpdate: (targets) => {
+                    const targetsText = Object.entries(targets)
+                        .map(([key, value]) => `${key}: ${value}`)
+                        .join(', ');
+                    document.getElementById('nutrition-targets').textContent = targetsText;
+                    document.getElementById('status').textContent = 'Nutrition updated';
+                }
+            });
+            
+            document.getElementById('status').textContent = 'Component loaded';
+        }
+        
+        // Event listeners
+        document.getElementById('theme-select').addEventListener('change', initializeMealPlanner);
+        document.getElementById('reload-btn').addEventListener('change', initializeMealPlanner);
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeMealPlanner();
+        });
+        
+        // Example of programmatic control
+        window.mealPlannerAPI = {
+            getSelectedMeal: () => mealPlanner?.getSelectedMeal(),
+            getNutritionTargets: () => mealPlanner?.getNutritionTargets(),
+            setNutritionTargets: (targets) => mealPlanner?.setNutritionTargets(targets),
+            destroy: () => mealPlanner?.destroy()
+        };
+        
+        // Log API to console for testing
+        console.log('Meal Planner API available at window.mealPlannerAPI');
+        console.log('Methods: getSelectedMeal(), getNutritionTargets(), setNutritionTargets(targets), destroy()');
+    </script>
+</body>
+</html> 
