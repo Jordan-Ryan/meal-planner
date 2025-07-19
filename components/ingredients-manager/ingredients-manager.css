@@ -510,12 +510,18 @@
     .table-container {
         margin: 0.5rem 0;
         border-radius: 0;
+        -webkit-overflow-scrolling: touch;
     }
     
     .table th,
     .table td {
         padding: 0.5rem 0.75rem;
         font-size: 0.875rem;
+        min-width: 80px; /* Ensure minimum column width */
+    }
+    
+    .table {
+        min-width: 500px; /* Reduced from 600px for better mobile experience */
     }
 }
 

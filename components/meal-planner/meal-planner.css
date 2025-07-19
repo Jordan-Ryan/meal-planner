@@ -497,6 +497,7 @@
     width: 90%;
     max-height: 80vh;
     overflow-y: auto;
+    overflow-x: auto;
     box-shadow: var(--shadow);
 }
 
@@ -516,12 +517,14 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    min-width: 300px; /* Ensure table doesn't get too cramped */
 }
 
 .ingredient-macros-table td {
     padding: 0.5rem;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
+    white-space: nowrap;
 }
 
 .ingredient-macros-table tr:first-child td {
@@ -610,6 +613,21 @@
     
     .cooking-instructions {
         padding: 1rem;
+    }
+
+    .ingredient-modal-content {
+        padding: 1rem;
+        max-width: 95%;
+        width: 95%;
+    }
+    
+    .ingredient-macros-table {
+        min-width: 250px;
+    }
+    
+    .ingredient-macros-table td {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
     }
 }
 
