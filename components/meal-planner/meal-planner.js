@@ -124,7 +124,7 @@ class MealPlanner {
                             <!-- Nutrition table will be rendered here -->
                         </section>
                         
-                        <section class="cooking-panel">
+                        <section class="cooking-panel hidden">
                             <!-- Cooking instructions and customization -->
                         </section>
                     </div>
@@ -251,6 +251,13 @@ class MealPlanner {
         
         this.renderNutritionTable(meal);
         
+        // Ensure cooking panel is hidden when opening meal
+        const cookingPanel = this.container.querySelector('.cooking-panel');
+        if (cookingPanel) {
+            cookingPanel.classList.add('hidden');
+            cookingPanel.innerHTML = '';
+        }
+        
         // Call callback if provided
         if (this.options.onMealSelect) {
             this.options.onMealSelect(meal);
@@ -259,11 +266,19 @@ class MealPlanner {
     
     closeMealDetails() {
         this.state.selectedMeal = null;
+        this.state.selectedCellData = null; // Reset selected cell data
         
         // Show gallery, hide detail page
         this.container.querySelector('#meal-gallery').classList.remove('hidden');
         this.container.querySelector('.filter-bar').classList.remove('hidden');
         this.container.querySelector('#meal-detail-page').classList.add('hidden');
+        
+        // Hide cooking panel
+        const cookingPanel = this.container.querySelector('.cooking-panel');
+        if (cookingPanel) {
+            cookingPanel.classList.add('hidden');
+            cookingPanel.innerHTML = '';
+        }
     }
     
     updateNutritionTargets() {
@@ -295,7 +310,7 @@ class MealPlanner {
         tableContainer.className = 'table-container';
         
         const table = document.createElement('table');
-        table.className = 'table';
+        table.className = 'nutrition-table';
         
         // Header
         const headerRow = document.createElement('tr');
@@ -347,7 +362,20 @@ class MealPlanner {
                         };
                         this.clearHighlights();
                         cell.classList.add('selected');
-                        this.openCookingPanel(this.state.selectedCellData, meal, false);
+                        
+                        // Show cooking panel
+                        const cookingPanel = this.container.querySelector('.cooking-panel');
+                        if (cookingPanel) {
+                            cookingPanel.classList.remove('hidden');
+                            this.openCookingPanel(this.state.selectedCellData, meal, true);
+                            
+                            // Scroll to cooking panel
+                            cookingPanel.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'start',
+                                inline: 'nearest'
+                            });
+                        }
                     });
                     
                     row.appendChild(cell);
@@ -365,7 +393,7 @@ class MealPlanner {
         const targets = this.getTargetInputs();
         if (!this.hasValidTargets(targets)) {
             this.clearHighlights();
-            this.showCookingPanelForBestMatch(meal);
+            // Don't automatically show cooking panel - let user select
             return;
         }
         
@@ -418,7 +446,7 @@ class MealPlanner {
                 carbPortion: meal.carb_portions[0]
             };
         }
-        this.openCookingPanel(cellData, meal, false);
+        this.openCookingPanel(cellData, meal, false); // Don't scroll automatically
     }
     
     openCookingPanel(cellData, meal, scrollToPanel) {
@@ -830,6 +858,16 @@ class MealPlanner {
                     this.openIngredientModal(ingType, ingId, ingWeight);
                 });
             });
+            
+            // Show and scroll to cooking panel after generating exact macro fit
+            panel.classList.remove('hidden');
+            setTimeout(() => {
+                panel.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            }, 100);
         } else {
             panel.innerHTML = '<div>No close macro fit found.</div>';
         }

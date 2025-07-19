@@ -147,6 +147,22 @@
 
 .close-detail {
     margin-bottom: 1rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close-detail:hover {
+    background: var(--background-color);
+    border-color: var(--primary-color);
 }
 
 .meal-banner {
@@ -189,7 +205,7 @@
     background: var(--surface-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    overflow: hidden;
+    overflow-x: auto;
     margin-bottom: 2rem;
 }
 
@@ -235,11 +251,45 @@
 }
 
 .ingredient-info-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
     font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-weight: bold;
+}
+
+.ingredient-info-btn:hover {
+    background: var(--primary-color-dark, #0056b3);
+    transform: scale(1.1);
 }
 
 .remove-extra-btn {
+    background: var(--danger-color, #dc3545);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
     font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-weight: bold;
+}
+
+.remove-extra-btn:hover {
+    background: var(--danger-color-dark, #c82333);
+    transform: scale(1.1);
 }
 
 /* Extras Section */
@@ -254,7 +304,7 @@
 
 .extras-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1rem;
 }
 
@@ -262,11 +312,15 @@
     background: var(--background-color);
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
-    padding: 1rem;
+    padding: 0.75rem;
     text-align: center;
     cursor: pointer;
     transition: var(--transition);
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: auto;
 }
 
 .extra-item:hover {
@@ -281,7 +335,9 @@
 
 .extra-name {
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
+    flex: 1;
+    text-align: left;
 }
 
 .extra-weight-input {
@@ -325,15 +381,56 @@
     font-size: 1.1rem;
 }
 
-/* Nutrition Table */
+/* Nutrition Table - Specific styles for meal planner */
 .nutrition-table {
     width: 100%;
     border-collapse: collapse;
+    background: var(--surface-color);
+}
+
+.nutrition-table th,
+.nutrition-table td {
+    padding: 0 !important;
+    text-align: center !important;
+    border: 1px solid var(--border-color) !important;
+    white-space: normal !important;
+}
+
+.nutrition-table th {
+    background: rgba(226, 232, 240, 0.6) !important;
+    font-weight: 600 !important;
+    color: #4a5568 !important;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem !important;
+}
+
+.nutrition-table td {
+    color: var(--text-color) !important;
+    vertical-align: middle !important;
+}
+
+/* Ensure nutrition table has proper styling and overrides generic table styles */
+.nutrition-table-container .nutrition-table {
+    min-width: auto !important;
+    white-space: normal !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    background: var(--surface-color) !important;
+}
+
+/* Override any generic table styles that might affect nutrition table */
+.nutrition-table-container .nutrition-table th,
+.nutrition-table-container .nutrition-table td {
+    padding: 0 !important;
+    text-align: center !important;
+    border: 1px solid var(--border-color) !important;
+    white-space: normal !important;
+    min-width: auto !important;
 }
 
 .nutrition-table .protein-label {
-    background: #fed7d7;
-    color: #c53030;
+    background: rgba(226, 232, 240, 0.6);
+    color: #4a5568;
     font-weight: 600;
     border-radius: 4px;
     padding: 0.25rem 0.5rem;
@@ -453,11 +550,11 @@
 @media (max-width: 768px) {
     .meal-gallery {
         grid-template-columns: 1fr;
-        padding: 1rem;
+        padding: 0.5rem;
     }
     
     .meal-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
     
     .target-inputs {
@@ -465,7 +562,54 @@
     }
     
     .meal-banner {
-        height: 200px;
+        height: 150px;
+    }
+    
+    /* Reduce spacing for mobile */
+    .meal-page {
+        padding: 0 0.5rem;
+    }
+    
+    .meal-header {
+        margin-bottom: 1rem;
+    }
+    
+    .nutrition-targets {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .nutrition-table-container {
+        margin-bottom: 1rem;
+    }
+    
+    .cooking-panel {
+        padding: 1rem;
+    }
+    
+    .ingredient-list {
+        gap: 0.5rem;
+    }
+    
+    .ingredient-item {
+        padding: 0.5rem;
+    }
+    
+    .extras-section {
+        margin-top: 1rem;
+    }
+    
+    .extras-grid {
+        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    
+    .extra-item {
+        padding: 0.5rem;
+    }
+    
+    .cooking-instructions {
+        padding: 1rem;
     }
 }
 

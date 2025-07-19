@@ -643,6 +643,8 @@ class MealsManager {
                     const category = categorySelect ? categorySelect.value : 'other';
                     this.addProteinRow(target, category);
                 } else if (action === 'add-extra' && target) {
+                    console.log('Adding extra row to:', target);
+                    console.log('this.addExtraRow exists:', typeof this.addExtraRow);
                     this.addExtraRow(target);
                 }
             }
