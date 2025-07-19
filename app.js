@@ -83,24 +83,24 @@ function getDefaultMacros(meal) {
   };
 }
 
-// Unsplash image mapping for each meal
+// Local image mapping for each meal
 const mealImages = {
-  "spaghetti_bolognese": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-  "meatballs_pasta": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80",
-  "pasta_bake": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80",
-  "beef_burgers": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80",
-  "cottage_pie": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80",
-  "chilli_con_carne": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80",
-  "beef_burrito": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80",
-  "beef_tacos": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80",
-  "loaded_nachos": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-  "stuffed_peppers": "https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80",
-  "chicken_pitta": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80",
-  "chicken_burgers": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80",
-  "chicken_curry": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-  "chicken_teriyaki": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80",
-  "sweet_sour_stir_fry": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80",
-  "chicken_fajitas": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80"
+  "spaghetti_bolognese": "images/spaghetti-bolognese-food.jpg",
+  "meatballs_pasta": "images/meatballs-with-pasta-food.jpg",
+  "pasta_bake": "images/pasta-bake-food.jpg",
+  "beef_burgers": "images/beef-burgers-food.jpg",
+  "cottage_pie": "images/cottage-pie-food.jpg",
+  "chilli_con_carne": "images/chilli-con-carne-food.jpg",
+  "beef_burrito": "images/beef-burrito-food.jpg",
+  "beef_tacos": "images/beef-tacos-food.jpg",
+  "loaded_nachos": "images/loaded-nachos-food.jpg",
+  "stuffed_peppers": "images/stuffed-peppers-food.jpg",
+  "chicken_pitta": "images/chicken-pittas-food.jpg",
+  "chicken_burgers": "images/chicken-burgers-food.jpg",
+  "chicken_curry": "images/chicken-curry-food.jpg",
+  "chicken_teriyaki": "images/chicken-teriyaki-food.jpg",
+  "sweet_sour_stir_fry": "images/sweet-and-sour-stir-fry-food.jpg",
+  "chicken_fajitas": "images/chicken-fajitas-food.jpg"
 };
 
 function renderMealGallery() {
@@ -963,36 +963,8 @@ function openIngredientModal(type, id, portionWeight) {
 }
 
 function getIngredientImageUrl(id, name) {
-  // Use Unsplash for common ingredients, fallback to null
-  const unsplashMap = {
-    'beef_mince_5': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
-    'beef_mince_15': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
-    'beef_mince_20': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
-    'chicken_breast': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'chicken_thigh': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'chicken_drumstick': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'basmati_rice': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
-    'penne_pasta': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'large_tortilla': 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80',
-    'mini_tortilla': 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80',
-    'taco_shell': 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80',
-    'tortilla_chips': 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80',
-    'brioche_bun': 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80',
-    'seeded_bun': 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80',
-    'pitta_bread': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'egg_noodles': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'cheddar_cheese': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    'onion': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'bell_pepper': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'lettuce': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'tomato': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'mushrooms': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'guacamole': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'sour_cream': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'salsa': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    'mini_naan': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-  };
-  return unsplashMap[id] || null;
+  // Currently no local ingredient images, return null to use fallback emojis
+  return null;
 }
 
 function clearMealForm() {
