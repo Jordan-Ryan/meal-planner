@@ -392,7 +392,7 @@ class MealPlanner {
         if (nutritionTable) {
             // Get the viewport width and container width
             const viewportWidth = window.innerWidth;
-            const tableWidth = Math.max(2000, viewportWidth + 800); // Much wider to guarantee scrolling
+            const tableWidth = Math.max(1200, viewportWidth + 200); // Reduced from 2000px minimum and 800px extra
             
             nutritionTable.style.minWidth = tableWidth + 'px';
             nutritionTable.style.width = tableWidth + 'px';
