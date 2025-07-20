@@ -209,21 +209,20 @@
     margin-bottom: 2rem;
     -webkit-overflow-scrolling: touch;
     width: 100%;
-    max-width: 100%;
     position: relative;
 }
 
 /* Table Container for Horizontal Scrolling */
 .table-container {
-    overflow-x: auto;
+    overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     background: var(--surface-color);
     margin: 1rem 0;
     position: relative;
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 .nutrition-summary h3 {
@@ -400,11 +399,11 @@
 
 /* Nutrition Table - Specific styles for meal planner */
 .nutrition-table {
-    width: 100%;
-    min-width: 1200px !important; /* Reduced from 2000px to fit better */
     border-collapse: collapse;
     background: var(--surface-color);
-    table-layout: fixed; /* Help with consistent column widths */
+    table-layout: fixed;
+    /* Width will be set by JavaScript */
+    min-width: 2000px !important; /* Fallback minimum width */
 }
 
 .nutrition-table th,
@@ -412,8 +411,8 @@
     padding: 0 !important;
     text-align: center !important;
     border: 1px solid var(--border-color) !important;
-    white-space: nowrap !important; /* Prevent text wrapping */
-    min-width: 120px !important; /* Reduced from 200px to fit better */
+    white-space: nowrap !important;
+    min-width: 200px !important; /* Wider columns to force scrolling */
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
@@ -433,7 +432,7 @@
 
 /* Ensure nutrition table has proper styling and overrides generic table styles */
 .nutrition-table-container .nutrition-table {
-    min-width: 1200px !important;
+    min-width: 1600px !important;
     white-space: nowrap !important;
     width: 100% !important;
     border-collapse: collapse !important;
@@ -447,7 +446,7 @@
     text-align: center !important;
     border: 1px solid var(--border-color) !important;
     white-space: nowrap !important;
-    min-width: 120px !important;
+    min-width: 160px !important;
 }
 
 .nutrition-table .protein-label {
@@ -622,12 +621,12 @@
     }
     
     .nutrition-table {
-        min-width: 900px !important; /* Reduced from 1500px to fit better on mobile */
+        min-width: 1200px !important; /* Much wider to guarantee scrolling on mobile */
     }
     
     .nutrition-table th,
     .nutrition-table td {
-        min-width: 100px !important; /* Reduced from 150px to fit better */
+        min-width: 140px !important; /* Wide columns to force scrolling on mobile */
         padding: 0.25rem !important;
         font-size: 0.875rem;
     }

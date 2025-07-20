@@ -390,10 +390,19 @@ class MealPlanner {
         // Force table to have minimum width for horizontal scrolling
         const nutritionTable = tableContainer.querySelector('.nutrition-table');
         if (nutritionTable) {
-            nutritionTable.style.minWidth = '1200px';
-            nutritionTable.style.width = '1200px';
+            // Get the viewport width and container width
+            const viewportWidth = window.innerWidth;
+            const tableWidth = Math.max(2000, viewportWidth + 800); // Much wider to guarantee scrolling
+            
+            nutritionTable.style.minWidth = tableWidth + 'px';
+            nutritionTable.style.width = tableWidth + 'px';
+            
             // Force a reflow to ensure the scroll container recognizes the width
             nutritionTable.offsetHeight;
+            
+            // Also set the container to have a fixed width
+            tableContainer.style.width = '100%';
+            tableContainer.style.overflowX = 'auto';
         }
         
         this.highlightTargetMatches(meal);
