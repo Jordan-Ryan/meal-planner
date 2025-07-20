@@ -29,15 +29,6 @@
 /* Filter Bar */
 .filter-bar {
     background: var(--surface-color);
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.filter-bar {
-    background: var(--surface-color);
     padding: 1.5rem;
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -51,6 +42,29 @@
     gap: 0.5rem;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.filter-btn {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: var(--surface-color);
+    border-color: var(--primary-color);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 /* Meal Gallery */
@@ -197,7 +211,25 @@
 }
 
 .target-inputs input {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1rem;
     font-size: 1rem;
+    color: var(--text-color);
+    transition: var(--transition);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.target-inputs input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.target-inputs input::placeholder {
+    color: var(--text-secondary);
 }
 
 /* Nutrition Table */
@@ -475,13 +507,35 @@
 }
 
 .nutrition-cell.best-match {
-    background: #48bb78;
-    color: white;
+    background: #48bb78 !important;
+    color: white !important;
+    border: 2px solid #38a169 !important;
+    box-shadow: 0 0 10px rgba(72, 187, 120, 0.3) !important;
+}
+
+.nutrition-cell.best-match .nutrition-summary {
+    background: transparent !important;
+}
+
+.nutrition-cell.best-match .nutrition-summary strong,
+.nutrition-cell.best-match .nutrition-summary small {
+    color: white !important;
 }
 
 .nutrition-cell.close-match {
-    background: #ed8936;
-    color: white;
+    background: #ed8936 !important;
+    color: white !important;
+    border: 2px solid #dd6b20 !important;
+    box-shadow: 0 0 10px rgba(237, 137, 54, 0.3) !important;
+}
+
+.nutrition-cell.close-match .nutrition-summary {
+    background: transparent !important;
+}
+
+.nutrition-cell.close-match .nutrition-summary strong,
+.nutrition-cell.close-match .nutrition-summary small {
+    color: white !important;
 }
 
 .nutrition-summary {

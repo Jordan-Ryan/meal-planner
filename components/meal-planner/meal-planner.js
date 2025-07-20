@@ -293,7 +293,7 @@ class MealPlanner {
         this.state.nutritionTargets = targets;
         
         if (this.state.selectedMeal) {
-            this.renderNutritionTable(this.state.selectedMeal);
+            this.highlightTargetMatches(this.state.selectedMeal);
         }
         
         // Call callback if provided
@@ -317,7 +317,8 @@ class MealPlanner {
         headerRow.innerHTML = '<th>Protein + Sauce</th>';
         meal.carb_portions.forEach(portion => {
             const carbUnit = this.data.ingredients.carbs[meal.carb].unit;
-            headerRow.innerHTML += `<th>${portion}${this.getUnitDisplay(carbUnit, this.data.ingredients.carbs[meal.carb].name, portion)}</th>`;
+            const carbName = this.data.ingredients.carbs[meal.carb].name;
+            headerRow.innerHTML += `<th>${portion}${this.getUnitDisplay(carbUnit, carbName, portion)} ${carbName}</th>`;
         });
         table.appendChild(headerRow);
         
@@ -410,6 +411,7 @@ class MealPlanner {
     
     highlightTargetMatches(meal) {
         const targets = this.getTargetInputs();
+        
         if (!this.hasValidTargets(targets)) {
             this.clearHighlights();
             // Don't automatically show cooking panel - let user select
@@ -432,13 +434,13 @@ class MealPlanner {
         });
         
         scores.sort((a, b) => a.score - b.score);
+        
         this.clearHighlights();
         
         if (scores.length > 0) {
             scores[0].cell.classList.add('best-match');
-            if (!this.state.selectedCellData) {
-                this.showCookingPanelForBestMatch(meal, scores[0].cell.dataset);
-            }
+            // Always show cooking panel for best match when there are valid targets
+            this.showCookingPanelForBestMatch(meal, scores[0].cell.dataset);
         }
         
         const threshold = scores.length > 0 ? scores[0].score * 1.1 : 0;
@@ -765,17 +767,20 @@ class MealPlanner {
     
     generateExactMacroFit(meal) {
         const targets = this.getTargetInputs();
-        console.log('Generating exact macro fit for targets:', targets);
         
-        let best = null;
+        // Get currently selected extras from the cooking panel
+        const currentExtras = this.getSelectedExtras(this.container.querySelector('.cooking-panel'));
+        
         let bestScore = Infinity;
+        let best = null;
         let bestCombo = null;
         
         meal.proteins.forEach(proteinType => {
             for (let pw = 50; pw <= 400; pw += 5) {
                 const maxCarbs = meal.carb === 'brioche_bun' || meal.carb === 'seeded_bun' ? 10 : 200;
                 for (let cw = 1; cw <= maxCarbs; cw += 1) {
-                    const nutrition = this.calculateMealNutrition(meal.id, proteinType, pw, cw, []);
+                    // Include current extras in the nutrition calculation
+                    const nutrition = this.calculateMealNutrition(meal.id, proteinType, pw, cw, currentExtras);
                     const score = this.calculateTargetScore(nutrition, targets);
                     
                     if (score < bestScore) {
@@ -804,14 +809,30 @@ class MealPlanner {
                 { type: 'carb', name: carb.name, id: meal.carb, weight: carbPortion, unit: carb.unit }
             ];
             
+            // Add current extras to the ingredient list
+            currentExtras.forEach(extra => {
+                const extraData = this.data.ingredients.extras[extra.id];
+                ingredientList.push({
+                    type: 'extra',
+                    name: extraData.name,
+                    id: extra.id,
+                    weight: extra.weight,
+                    unit: extraData.unit
+                });
+            });
+            
             panel.innerHTML = `
                 <ul class='ingredient-list'>
                     ${ingredientList.map(ing => {
                         const displayWeight = ing.unit === 'each' ? ing.weight : ing.weight + 'g';
+                        const isExtra = ing.type === 'extra';
                         return `
                         <li class='ingredient-item'>
                             <span>${ing.name} <strong>${displayWeight}</strong></span>
-                            <button class='ingredient-info-btn' data-ingtype='${ing.type}' data-ingid='${ing.id}' data-ingweight='${ing.weight}' aria-label='Show info for ${ing.name}'>i</button>
+                            ${isExtra ? 
+                                `<button class='remove-extra-btn' data-extra-id='${ing.id}' aria-label='Remove ${ing.name}'>×</button>` :
+                                `<button class='ingredient-info-btn' data-ingtype='${ing.type}' data-ingid='${ing.id}' data-ingweight='${ing.weight}' aria-label='Show info for ${ing.name}'>i</button>`
+                            }
                         </li>
                         `;
                     }).join('')}
@@ -875,6 +896,15 @@ class MealPlanner {
                     const ingId = btn.dataset.ingid;
                     const ingWeight = btn.dataset.ingweight;
                     this.openIngredientModal(ingType, ingId, ingWeight);
+                });
+            });
+            
+            // Add event listeners for remove extra buttons
+            panel.querySelectorAll('.remove-extra-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const extraId = btn.dataset.extraId;
+                    this.removeExtraFromIngredientsList(panel, extraId);
+                    this.updateNutritionDisplay(meal, bestCombo, panel);
                 });
             });
             
@@ -1022,28 +1052,54 @@ class MealPlanner {
     
     calculateTargetScore(nutrition, targets) {
         let score = 0;
-        if (targets.calories !== null) score += Math.abs(nutrition.calories - targets.calories) * 0.5;
-        if (targets.protein !== null) score += Math.abs(nutrition.protein - targets.protein) * 8;
-        if (targets.carbs !== null) score += Math.abs(nutrition.carbs - targets.carbs) * 2;
-        if (targets.fat !== null) score += Math.abs(nutrition.fat - targets.fat) * 1;
-        return score;
+        let hasAnyTarget = false;
+        
+        // Check if we have any valid targets
+        if (targets.calories && targets.calories > 0) {
+            score += Math.abs(nutrition.calories - targets.calories) * 0.5;
+            hasAnyTarget = true;
+        }
+        if (targets.protein && targets.protein > 0) {
+            score += Math.abs(nutrition.protein - targets.protein) * 8;
+            hasAnyTarget = true;
+        }
+        if (targets.carbs && targets.carbs > 0) {
+            score += Math.abs(nutrition.carbs - targets.carbs) * 2;
+            hasAnyTarget = true;
+        }
+        if (targets.fat && targets.fat > 0) {
+            score += Math.abs(nutrition.fat - targets.fat) * 1;
+            hasAnyTarget = true;
+        }
+        
+        // If no targets are set, return a very high score (no match)
+        return hasAnyTarget ? score : 999999;
     }
     
     getTargetInputs() {
         const getVal = id => {
-            const v = this.container.querySelector(`#${id}`)?.value;
-            return v === '' ? null : Number(v);
+            const input = this.container.querySelector(`#${id}`);
+            if (!input || input.value === '') return 0;
+            const val = parseFloat(input.value);
+            return isNaN(val) ? 0 : val;
         };
-        return {
+        const targets = {
             calories: getVal('target-calories-detail'),
             carbs: getVal('target-carbs-detail'),
             protein: getVal('target-protein-detail'),
             fat: getVal('target-fat-detail')
         };
+        return targets;
     }
     
     hasValidTargets(targets) {
-        return targets && (targets.calories !== null || targets.carbs !== null || targets.protein !== null || targets.fat !== null);
+        const isValid = targets && (
+            (targets.calories && targets.calories > 0) || 
+            (targets.carbs && targets.carbs > 0) || 
+            (targets.protein && targets.protein > 0) || 
+            (targets.fat && targets.fat > 0)
+        );
+        return isValid;
     }
     
     // Public API methods
