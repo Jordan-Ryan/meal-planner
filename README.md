@@ -1,160 +1,133 @@
-# 🍽️ Meal Planner
+# Meal Planner
 
-A modular, component-based meal planning application with nutrition tracking and recipe management.
+Static browser app for browsing meals, entering calorie and macro targets, and editing the in-memory meal and ingredient lists. The repository is HTML, CSS, JavaScript, and JSON. It has no package manifest, lockfile, build script, or test runner.
 
-## 🚀 Quick Start
+## Run
 
-### Option 1: Simple Component Usage
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="components/meal-planner/meal-planner.css">
-</head>
-<body>
-    <div id="meal-planner-container"></div>
-    <script src="components/meal-planner/meal-planner.js"></script>
-    <script>
-        const mealPlanner = new MealPlanner('meal-planner-container', {
-            theme: 'default',
-            dataPath: 'data/',
-            imagesPath: 'images/'
-        });
-    </script>
-</body>
-</html>
+From the repository root:
+
+```bash
+python3 -m http.server 8000
 ```
 
-### Option 2: Multi-App Platform
-Open `platform-example.html` to see the meal planner as part of a larger multi-app platform.
+Then open:
 
-## 📁 Project Structure
+- [http://localhost:8000/](http://localhost:8000/) — `index.html`
+- [http://localhost:8000/platform-example.html](http://localhost:8000/platform-example.html)
+- [http://localhost:8000/components/meal-planner/example.html](http://localhost:8000/components/meal-planner/example.html)
+- [http://localhost:8000/components/meals-manager/example.html](http://localhost:8000/components/meals-manager/example.html)
+- [http://localhost:8000/components/ingredients-manager/example.html](http://localhost:8000/components/ingredients-manager/example.html)
+
+The scripts load JSON with `fetch`. Serve this directory so the relative `data/` and `images/` paths resolve. The component example pages pass `../../data/` and, for the meal planner and meals manager, `../../images/`.
+
+There is no install step in this repository.
+
+The GitHub repository homepage field is `https://jordan-ryan.github.io/meal-planner/`. This tree has no Pages workflow or CNAME.
+
+## Pages
+
+`index.html` is the main page. It links `components/meal-planner/meal-planner.css`, defines theme variables in an inline stylesheet, and loads the three component scripts. On `DOMContentLoaded` it sets the body theme to `dark` and shows the meal planner. The header switches among meal planner, ingredients manager, and meals manager. It does not load `app.js` or `components/component-registry.js`, and it does not link `meals-manager.css` or `ingredients-manager.css`.
+
+`platform-example.html` loads `components/component-registry.js` and the three component scripts, then constructs them with `new`. It does not call `componentRegistry.load()`, and it does not link the component stylesheets. The workout tracker, budget manager, task organizer, and weather dashboard controls show placeholder blocks that are written in that HTML file.
+
+`app.js` is not referenced by any HTML file. On a page that already defines `MealPlanner` and contains `#meal-planner-container`, it constructs `MealPlanner` on `DOMContentLoaded` and assigns `window.mealPlanner`.
+
+## Layout
 
 ```
-Meal Planner/
-├── index.html                 # Simple component demo
-├── app.js                     # Minimal component loader
-├── components/                # Component library
-│   ├── meal-planner/         # Meal planner component
-│   │   ├── meal-planner.js   # Component logic
-│   │   ├── meal-planner.css  # Component styles
-│   │   ├── manifest.json     # Component metadata
-│   │   ├── README.md         # Component documentation
-│   │   └── example.html      # Component demo
-│   └── component-registry.js # Component management system
-├── data/                     # Meal and ingredient data
-│   ├── ingredients.json
-│   ├── meals.json
-│   ├── portion_steps.json
-│   └── meal_extras.json
-├── images/                   # Meal images
-├── platform-example.html     # Multi-app platform demo
-└── MODULAR_ARCHITECTURE.md   # Architecture documentation
+index.html
+platform-example.html
+app.js
+aces.json
+components/
+  component-registry.js
+  meal-planner/
+    meal-planner.js
+    meal-planner.css
+    manifest.json
+    example.html
+    README.md
+  meals-manager/
+    meals-manager.js
+    meals-manager.css
+    example.html
+    README.md
+  ingredients-manager/
+    ingredients-manager.js
+    ingredients-manager.css
+    example.html
+    README.md
+data/
+  meals.json
+  ingredients.json
+  portion_steps.json
+  meal_extras.json
+images/          # 16 .jpg files
+docs/STATE.md
+AGENTS.md
 ```
 
-## 🎯 Features
+## Themes
 
-- **🍽️ Meal Gallery** - Browse meals with filtering by category
-- **📊 Nutrition Tracking** - Set and track calorie and macro targets
-- **🎨 Themeable** - Multiple built-in themes (default, light, blue, green)
-- **📱 Responsive** - Mobile-first design
-- **♿ Accessible** - WCAG compliant with keyboard navigation
-- **🔧 Modular** - Easy to integrate into larger applications
-- **📦 Self-contained** - No external dependencies
+The theme `<select>` elements in `index.html`, `platform-example.html`, and the three example pages use `default`, `dark`, `blue`, and `green`.
 
-## 🎨 Themes
+`index.html` defines these custom properties on `:root` and on `[data-theme]`: `--primary-color`, `--secondary-color`, `--background-color`, `--surface-color`, `--text-color`, `--text-secondary`, `--border-color`, `--shadow`, `--border-radius`, `--transition`.
 
-The component supports multiple themes:
+`:root` and `[data-theme="dark"]` use the dark palette. `[data-theme="default"]` uses the light palette. `[data-theme="blue"]` and `[data-theme="green"]` change only `--primary-color` and `--secondary-color`.
+
+Component stylesheets read those `var(--…)` names. They do not define their own theme blocks. Each component sets `data-theme` on its root element from the `theme` option. `index.html` also sets `data-theme` on `document.body`.
+
+## Data
+
+`data/meals.json` is an object with a `meals` array. Each meal has `id`, `name`, `category` (`beef` or `chicken` in the current file), `proteins` (ingredient ids), `sauce`, `carb`, `carb_portions`, `image` (basename with no extension), `cooking_base`, and `appropriate_extras`.
+
+`data/ingredients.json` has objects `proteins`, `sauces`, `carbs`, and `extras`, keyed by id. Entries have `name`, `calories`, `fat`, `carbs`, `protein`, and `unit`. Sauce entries also have `ratio`.
+
+`data/portion_steps.json` has `portion_steps`, keyed by carb id, with `base_unit`, `steps`, and `step_calories`.
+
+`data/meal_extras.json` has `meal_extras`, keyed by style name, with `meals` and `extras` id lists.
+
+The meal planner reads all four files. The meals manager reads `meals.json` and `ingredients.json`. The ingredients manager reads `ingredients.json`.
+
+## Meal planner
 
 ```javascript
-const mealPlanner = new MealPlanner('container-id', {
-    theme: 'default' // Options: 'default', 'dark', 'blue', 'green'
+const mealPlanner = new MealPlanner('meal-planner-container', {
+    theme: 'default',
+    dataPath: 'data/',
+    imagesPath: 'images/',
+    onMealSelect: (meal) => {},
+    onNutritionUpdate: (targets) => {}
 });
 ```
 
-## 🔧 Configuration
+`dataPath` and `imagesPath` default to `data/` and `images/`. Gallery images are requested as `${imagesPath}${meal.image}.jpg`.
 
-```javascript
-const mealPlanner = new MealPlanner('container-id', {
-    theme: 'default',           // Visual theme
-    dataPath: 'data/',          // Path to data files
-    imagesPath: 'images/',      // Path to meal images
-    onMealSelect: (meal) => {   // Callback when meal is selected
-        console.log('Selected:', meal);
-    },
-    onNutritionUpdate: (targets) => { // Callback when targets change
-        console.log('Targets:', targets);
-    }
-});
-```
+Filters are `all`, `beef`, and `chicken`. Nutrition target state starts at `{ calories: 0, carbs: 0, protein: 0, fat: 0 }`. A **Generate Exact** button is added in the detail panel when any target is greater than 0; it calls `generateExactMacroFit`.
 
-## 📊 Data Structure
+| Method | Behavior in `meal-planner.js` |
+| --- | --- |
+| `getSelectedMeal()` | Returns `state.selectedMeal`. |
+| `getNutritionTargets()` | Returns a copy of `state.nutritionTargets`. |
+| `setNutritionTargets(targets)` | Copies `targets` into state, then `updateNutritionTargets()` replaces that state from `#target-calories-detail`, `#target-carbs-detail`, `#target-protein-detail`, and `#target-fat-detail`, and calls `onNutritionUpdate`. |
+| `destroy()` | Sets the container `innerHTML` to an empty string. |
 
-The component requires these JSON files:
+`onMealSelect` and `onNutritionUpdate` are option callbacks. The script does not dispatch `mealSelect` or `nutritionUpdate` events.
 
-- **meals.json** - Meal definitions with proteins, carbs, and sauces
-- **ingredients.json** - Nutrition data for all ingredients
-- **portion_steps.json** - Carb portion calculations
-- **meal_extras.json** - Optional extras for each meal
+## Meals manager and ingredients manager
 
-## 🚀 API Methods
+Both classes take a container id and an options object. Defaults are `dataPath: 'data/'` and `theme: 'default'`. The meals manager also defaults `imagesPath` to `images/`.
 
-```javascript
-// Get selected meal
-const selectedMeal = mealPlanner.getSelectedMeal();
+Meals manager callbacks: `onMealUpdate`, `onMealDelete`, `onMealAdd`. Ingredients manager callbacks: `onIngredientUpdate`, `onIngredientDelete`, `onIngredientAdd`.
 
-// Get nutrition targets
-const targets = mealPlanner.getNutritionTargets();
+`saveMeals()` and `saveIngredients()` log the current arrays and call the update callback with the full array. They do not write `meals.json` or `ingredients.json`. Add, edit, and delete then update the in-memory arrays and re-render. Edit also calls the update callback again with the single edited object.
 
-// Set nutrition targets
-mealPlanner.setNutritionTargets({
-    calories: 2000,
-    carbs: 250,
-    protein: 150,
-    fat: 65
-});
+`destroy()` clears the container. The meals manager also removes listeners it stored on `this._eventListeners`.
 
-// Cleanup
-mealPlanner.destroy();
-```
+The meals manager list filters are `all`, `beef`, and `chicken`. The ingredients manager filters are `all`, `proteins`, `sauces`, `carbs`, and `extras`. Both have a search field.
 
-## 🏗️ Architecture
+`MealsManager.calculateMealCalories(meal)` sums `meal.ingredients` using per-100 amounts. The meals in `meals.json` do not use an `ingredients` array, and the class does not call this method.
 
-This project demonstrates a modular component architecture:
+`MealsManager.getMealImageUrl(meal)` returns `meal.image` when it starts with `http`, otherwise `${imagesPath}${meal.image}.svg`.
 
-- **Components** are self-contained and reusable
-- **Component Registry** manages multiple components
-- **Multi-App Platform** shows how to combine components
-- **Theming System** provides consistent visual design
-
-See `MODULAR_ARCHITECTURE.md` for detailed documentation.
-
-## 🧪 Testing
-
-### Component Demo
-Open `components/meal-planner/example.html` to test the component in isolation.
-
-### Multi-App Platform
-Open `platform-example.html` to see the component in a larger application.
-
-### Simple App
-Open `index.html` for a basic implementation.
-
-## 🔮 Future Enhancements
-
-- Component marketplace
-- Plugin system
-- Real-time collaboration
-- Analytics dashboard
-- A/B testing framework
-
-## 📞 Support
-
-For questions and support:
-- Check component documentation in `components/meal-planner/README.md`
-- Review architecture guide in `MODULAR_ARCHITECTURE.md`
-- Test with the provided example files
-
----
-
-**Built with modular architecture for scalability and reusability.** 🚀 
+Further notes for each class are in `components/meal-planner/README.md`, `components/meals-manager/README.md`, and `components/ingredients-manager/README.md`. `docs/STATE.md` records the current tree, including data and filename mismatches. `AGENTS.md` records how to run and change this repository.
